@@ -48,9 +48,5 @@ label.bind("<Button-1>",signupClick)
 
 
 
-
-
-
-
 uiApp.mainloop()
 
