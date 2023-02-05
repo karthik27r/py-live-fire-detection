@@ -24,6 +24,15 @@ def homeScreen(uid,username):
     optionsFrame.columnconfigure(0, weight=1)
     optionsFrame.rowconfigure(0, weight=1)
     
+    homeBtn = customtkinter.CTkButton(master=optionsFrame, text="Home", fg_color="transparent")
+    homeBtn.place(relx=0.025, rely=0.1)
+    liveBtn = customtkinter.CTkButton(master=optionsFrame, text="Live Detection", fg_color="transparent")
+    liveBtn.place(relx=0.025, rely=0.25)
+    picBtn = customtkinter.CTkButton(master=optionsFrame, text="Photo Detection", fg_color="transparent")
+    picBtn.place(relx=0.025, rely=0.325)
+    vidBtn = customtkinter.CTkButton(master=optionsFrame, text="Video Detection", fg_color="transparent")
+    vidBtn.place(relx=0.025, rely=0.4)
+    
     homeFrame = customtkinter.CTkFrame(master="",border_color="#Defd00", fg_color="transparent")
     uiApp.grid_columnconfigure(1, weight=1)
     homeFrame.grid(row=0, column=1, sticky = 'nsew')
