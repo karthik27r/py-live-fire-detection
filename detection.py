@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 def vidDetection(fname):
-    video = cv2.VideoCapture("assets/functions/video1.mp4")
+    video = cv2.VideoCapture(fname)
 
     while True:
         (grabbed, frame) = video.read()
