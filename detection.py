@@ -23,12 +23,15 @@ def vidDetection(fname):
     
         fireProb = cv2.countNonZero(mask)
     
-        cv2.imshow("output", blur) 
-
+        # cv2.imshow("output", output) 
+        res=0
         if int(fireProb)>15000:
+            res = 1
             print("Fire Detected")
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
+        return res, mask, output
+    
     cv2.destroyAllWindows()
     video.release()

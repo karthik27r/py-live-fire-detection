@@ -1,6 +1,13 @@
+import PIL
 import customtkinter
+import cv2
 from tkinter import filedialog
+from PIL import ImageTk, Image
+from cv2 import VideoCapture
 import detection
+from tkinter import *
+import tkinter as tk
+from tkvideo import tkvideo
 
 def ess():
     customtkinter.set_appearance_mode("dark")
@@ -19,11 +26,7 @@ def homeScreen(uid,username):
     uiApp.columnconfigure(1, weight=0)
     uiApp.rowconfigure(0, weight=1)
 
-    def openAfile():
-        uiApp.filename = filedialog.askopenfilename(initialdir="", title="Open a Video File")
-        fname = uiApp.filename
-        print(fname)
-        detection.vidDetection(fname)
+    
         
     def homePage():
         homeFrame = customtkinter.CTkFrame(master="",border_color="#Defd00", fg_color="transparent")
@@ -67,17 +70,45 @@ def homeScreen(uid,username):
         vidFrame.grid(row=0, column=1, sticky = 'nsew')
         vidFrame.columnconfigure(1, weight=1)
     
-    
-        title = "Detect Fire in a Video"
-        label = customtkinter.CTkLabel( master=vidFrame, text=title, text_color="#FFFFFF",font=("montserrat",25), padx=15, pady=30)
-        label.grid(row=1, column=1, sticky = 'nw')
+        def openAfile():
+            uiApp.filename = filedialog.askopenfilename(initialdir="", title="Open a Video File")
+            fname = uiApp.filename
+            print(fname)
+            res, frame, maskOut = detection.vidDetection(fname)
+            playRes(res,fname)
+            reqInp()
+            
+        def reqInp():
+            title = "Detect Fire in a Video"
+            label = customtkinter.CTkLabel( master=vidFrame, text=title, text_color="#FFFFFF",font=("montserrat",25), padx=15, pady=30)
+            label.grid(row=1, column=1, sticky = 'nw')
         
-        userChoice = "Please Insert a Video"
-        userChoiceLabel = customtkinter.CTkLabel( master=vidFrame, text=userChoice, text_color="#FFFFFF",font=("montserrat",18), padx=15, pady=20)
-        userChoiceLabel.grid(row =2, column =1,sticky ="nsew")
+            userChoice = "Please Insert a Video"
+            userChoiceLabel = customtkinter.CTkLabel( master=vidFrame, text=userChoice, text_color="#FFFFFF",font=("montserrat",18), padx=15, pady=20)
+            userChoiceLabel.grid(row =2, column =1,sticky ="nsew")
         
-        userChoiceButton = customtkinter.CTkButton( master=vidFrame, text = "Insert Video File", font=("montserrat",15), command= lambda:openAfile())
-        userChoiceButton.grid(row=3, column=1, columnspan=2, sticky='n')
+            userChoiceButton = customtkinter.CTkButton( master=vidFrame, text = "Insert Video File", font=("montserrat",15), command= lambda:openAfile())
+            userChoiceButton.grid(row=3, column=1, columnspan=2, sticky='n')
+            
+        reqInp()
+        
+        def playRes(res, fname):
+            
+            vc = cv2.VideoCapture(fname)
+            # canvas = tk.Canvas(vidFrame, width=640, height=480)
+            # canvas.grid(row=4, column=1, sticky='nsew')
+            my_label = Label(vidFrame, bg="#1E1E1E")
+            my_label.grid(row=4, column=1, sticky='nsew',pady=20)
+
+            def show_frame():
+                grabbed, frame = vc.read()
+                if grabbed:
+                    player = tkvideo(fname, my_label, loop = 1)
+                    player.play()
+                
+            show_frame()
+            print(res)
+        
 
         
     optionsFrame = customtkinter.CTkFrame(master="", border_color="#DC5F00" ,border_width= 2)
