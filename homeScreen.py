@@ -1,3 +1,4 @@
+import time
 import PIL
 import customtkinter
 import cv2
@@ -92,22 +93,35 @@ def homeScreen(uid,username):
             
         reqInp()
         
+        
         def playRes(res, fname):
             
             vc = cv2.VideoCapture(fname)
             # canvas = tk.Canvas(vidFrame, width=640, height=480)
             # canvas.grid(row=4, column=1, sticky='nsew')
-            my_label = Label(vidFrame, bg="#1E1E1E")
-            my_label.grid(row=4, column=1, sticky='nsew',pady=20)
+            vidLabel = Label(vidFrame, bg="#1E1E1E")
+            vidLabel.grid(row=4, column=1, sticky='nsew',pady=20)
 
             def show_frame():
                 grabbed, frame = vc.read()
                 if grabbed:
-                    player = tkvideo(fname, my_label, loop = 1)
+                    player = tkvideo(fname, vidLabel, loop = 1)
                     player.play()
                 
             show_frame()
-            print(res)
+            
+            resultLabel = customtkinter.CTkLabel(master= vidFrame, text="Analyzing.....", font=("montserrat",18), padx=15, pady=20 )
+            resultLabel.grid(row =5, column =1,sticky ="nsew")
+            
+            def result(res):
+                time
+                if res == 1:
+                    resultLabel.configure(text="Fire Detected!!",text_color="#DC5F00",font=("montserrat",24) )
+                else:
+                    resultLabel.configure(text="No Fire Detected",text_color="#ffffff" )
+                    
+            result(res)
+        
         
 
         

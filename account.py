@@ -54,7 +54,7 @@ def loginScreen():
             usernameEntry.configure(border_color="green")
             passwordEntry.configure(border_color="green")
             loginAccButton.configure(fg_color="green",hover_color="green", text="Login Successful | Processing...")
-            uiApp.after(4000, gotohome)
+            uiApp.after(3000, gotohome)
             
         else:
             usernameEntry.configure(border_color="red")
@@ -151,7 +151,7 @@ def signupScreen():
             usernameEntry.configure(border_color="green")
             emailEntry.configure(border_color="green")
             createAccButton.configure(fg_color="green",hover_color="green", text="Account Created | Processing...")
-            uiApp.after(4000, gotologin)
+            uiApp.after(3000, gotologin)
         
             
         # print("dbpass")
